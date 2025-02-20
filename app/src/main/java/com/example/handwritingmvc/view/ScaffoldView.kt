@@ -34,7 +34,7 @@ fun ScaffoldView(content: @Composable (PaddingValues) -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldTopAppBar() {
+private fun ScaffoldTopAppBar() {
     TopAppBar(
         title = { Text("필기를 작성하세요") },
         actions = {
@@ -45,7 +45,7 @@ fun ScaffoldTopAppBar() {
 }
 
 @Composable
-fun TopBarIconButtons(icon: ImageVector, onClick: () -> Unit) {
+private fun TopBarIconButtons(icon: ImageVector, onClick: () -> Unit) {
     IconButton(
         onClick = onClick
     ) {
