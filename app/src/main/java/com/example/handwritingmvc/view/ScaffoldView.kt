@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.handwritingmvc.model.LoadingModel
 
 @Composable
 fun ScaffoldView(content: @Composable (PaddingValues) -> Unit) {
@@ -23,7 +24,9 @@ fun ScaffoldView(content: @Composable (PaddingValues) -> Unit) {
         modifier = Modifier.fillMaxSize(),
         topBar = { ScaffoldTopAppBar() },
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(
+                onClick = {}
+            ) {
                 Icon(imageVector = Icons.Rounded.Edit, contentDescription = null)
             }
         }
