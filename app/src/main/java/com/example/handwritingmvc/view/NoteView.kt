@@ -1,15 +1,15 @@
 package com.example.handwritingmvc.view
 
-import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
-import com.example.handwritingmvc.controller.LoadingController
+import coil3.compose.AsyncImage
+import com.example.handwritingmvc.controller.ImageController
 
 @Composable
-fun NoteView() {
-    val painter = LoadingController().controlImage()
+fun NoteView(imageController: ImageController) {
+    val painter = imageController.selectedImagePainter
 
-    Image(
-        painter = painter,
+    AsyncImage(
+        model = painter,
         contentDescription = null
     )
 }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
-class LoadingModel {
+class ImageModel {
     // 이미지 uri를 저장
     var savedUri by mutableStateOf<Uri?> (null)
         // 위에 선언된 uri값이 외부에서 접근할 수 있지만 수정은 불가능하게 해줌
