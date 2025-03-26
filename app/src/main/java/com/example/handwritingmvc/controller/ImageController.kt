@@ -27,7 +27,24 @@ class ImageController(private val imageModel: ImageModel) {
         _selectedImagePainter.value = uri
     }
 
+    // 휴지통 아이콘 버튼 클릭시 실행될 함수
+    // 이미지 uri 제거 및 필기 삭제
+    fun deleteImageAndWriting(deleteWritingOnly: Boolean) {
+        if (deleteWritingOnly) {
+            imageModel.deleteUri()
+            _selectedImagePainter.value = null
+        }
+        closeDialogForDeleting()
+    }
 
+    fun openDialogForDeleting() {
+        _isDeleteWritingClicked.value = true
+    }
+
+    // 필기 삭제 혹은 이미지 삭제가 실행되었거나 취소하였을 때 대화상자 닫아주는 함수
+    fun closeDialogForDeleting() {
+        _isDeleteWritingClicked.value = false
+    }
 
     @Composable
     private fun createPainter(context: Context, uri: Uri): AsyncImagePainter {

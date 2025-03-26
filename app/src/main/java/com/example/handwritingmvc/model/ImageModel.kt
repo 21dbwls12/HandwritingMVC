@@ -15,4 +15,9 @@ class ImageModel {
     fun updateUri(uri: Uri?) {
         savedUri = uri
     }
+
+    // uri값을 기본값으로 변경하는 함수
+    fun deleteUri() {
+        savedUri = null
+    }
 }

@@ -9,12 +9,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -32,7 +35,7 @@ fun ScaffoldView(imageController: ImageController, content: @Composable (Padding
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { ScaffoldTopAppBar() },
+        topBar = { ScaffoldTopAppBar(imageController) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -43,18 +46,21 @@ fun ScaffoldView(imageController: ImageController, content: @Composable (Padding
             }
         }
     ) { innerPadding ->
+        if (imageController.isDeleteWritingClicked) {
+            DialogForDeleteImage(imageController)
+        }
         content(innerPadding)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ScaffoldTopAppBar() {
+private fun ScaffoldTopAppBar(imageController: ImageController) {
     TopAppBar(
         title = { Text("필기를 작성하세요") },
         actions = {
             TopBarIconButtons(Icons.Rounded.Check) { }
-            TopBarIconButtons(Icons.Rounded.Delete) { }
+            TopBarIconButtons(Icons.Rounded.Delete) { imageController.openDialogForDeleting() }
         }
     )
 }
@@ -66,4 +72,26 @@ private fun TopBarIconButtons(icon: ImageVector, onClick: () -> Unit) {
     ) {
         Icon(imageVector = icon, contentDescription = null)
     }
+}
+
+@Composable
+private fun DialogForDeleteImage(imageController: ImageController) {
+    AlertDialog(
+        onDismissRequest = { imageController.closeDialogForDeleting() },
+        confirmButton = {
+            DialogTextButton("예") { imageController.deleteImageAndWriting(true) }
+        },
+        dismissButton = {
+            DialogTextButton("아니오") { imageController.deleteImageAndWriting(false) }
+        },
+        icon = { Icon(imageVector = Icons.Rounded.Info, contentDescription = null) },
+        text = { Text("이미지도 같이 삭제하시겠습니까?") }
+    )
+}
+
+@Composable
+private fun DialogTextButton(dialog: String, onClick: () -> Unit) {
+    TextButton(
+        onClick = onClick
+    ) { Text(dialog) }
 }
