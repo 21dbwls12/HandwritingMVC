@@ -62,4 +62,13 @@ dependencies {
 
     // ML Kit - Digital Ink
     implementation(libs.digital.ink.recognition)
+
+    // Ink
+//    implementation(libs.androidx.ink.authoring)
+//    implementation(libs.androidx.ink.brush)
+//    implementation(libs.androidx.ink.geometry)
+//    implementation(libs.androidx.ink.nativeloader)
+//    implementation(libs.androidx.ink.rendering)
+//    implementation(libs.androidx.ink.strokes)
+
 }

@@ -2,12 +2,16 @@ package com.example.handwritingmvc.controller
 
 import android.util.Log
 import android.view.MotionEvent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.google.mlkit.vision.digitalink.Ink
 
 class InkController {
-    var inkBuilder = Ink.Builder()
-    lateinit var strokeBuilder: Ink.Stroke.Builder
-
+//    var inkBuilder = Ink.Builder()
+    var inkBuilder by mutableStateOf(Ink.builder())
+        private set 
+    private lateinit var strokeBuilder: Ink.Stroke.Builder
 
 
     fun addNewTouchEvent(event: MotionEvent) {
@@ -21,7 +25,9 @@ class InkController {
                 strokeBuilder = Ink.Stroke.builder()
                 strokeBuilder.addPoint(Ink.Point.create(x,y,t))
             }
-            MotionEvent.ACTION_MOVE -> strokeBuilder.addPoint((Ink.Point.create(x, y, t)))
+            MotionEvent.ACTION_MOVE -> {
+                strokeBuilder.addPoint((Ink.Point.create(x, y, t)))
+            }
             MotionEvent.ACTION_UP -> {
                 strokeBuilder.addPoint(Ink.Point.create(x, y, t))
                 inkBuilder.addStroke((strokeBuilder.build()))
