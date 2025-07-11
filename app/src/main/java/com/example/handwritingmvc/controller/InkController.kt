@@ -7,11 +7,9 @@ import androidx.compose.runtime.setValue
 import com.google.mlkit.vision.digitalink.Ink
 
 class InkController {
-//    var inkBuilder = Ink.Builder()
     var inkBuilder by mutableStateOf(Ink.builder())
         private set 
     private lateinit var strokeBuilder: Ink.Stroke.Builder
-
 
     fun addNewTouchEvent(event: MotionEvent) {
         val action = event.actionMasked
