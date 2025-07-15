@@ -56,6 +56,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // LiveData
+    implementation(libs.androidx.runtime.livedata)
 
     // Coil
     implementation(libs.coil.compose)

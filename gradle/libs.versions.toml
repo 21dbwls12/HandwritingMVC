@@ -11,6 +11,7 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.02.00"
+runtimeLivedata = "1.8.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -20,6 +21,7 @@ androidx-ink-geometry = { module = "androidx.ink:ink-geometry", version.ref = "i
 androidx-ink-nativeloader = { module = "androidx.ink:ink-nativeloader", version.ref = "inkAuthoring" }
 androidx-ink-rendering = { module = "androidx.ink:ink-rendering", version.ref = "inkAuthoring" }
 androidx-ink-strokes = { module = "androidx.ink:ink-strokes", version.ref = "inkAuthoring" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 digital-ink-recognition = { module = "com.google.mlkit:digital-ink-recognition", version.ref = "digitalInkRecognition" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
