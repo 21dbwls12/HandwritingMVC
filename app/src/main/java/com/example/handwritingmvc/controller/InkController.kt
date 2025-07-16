@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.google.mlkit.vision.digitalink.Ink
 
+// 선이 다 그려진 다음에 화면에 나타나는 기능에 대한 controller class
 class InkController {
     var inkBuilder by mutableStateOf(Ink.builder())
         private set 
