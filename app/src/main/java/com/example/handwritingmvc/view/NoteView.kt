@@ -14,11 +14,12 @@ import androidx.compose.ui.input.pointer.pointerInput
 import coil3.compose.AsyncImage
 import com.example.handwritingmvc.controller.ImageController
 import com.example.handwritingmvc.controller.LiveInkController
+import com.example.handwritingmvc.model.InkModel
 
 @Composable
-fun NoteView(imageController: ImageController) {
-
-    val liveInkController = remember { LiveInkController() }
+fun NoteView(imageController: ImageController, inkController: LiveInkController) {
+    // view에서 model을 직접 접근하지 않고 controller를 통해서만 접근하도록 설정
+    val liveInkController = remember { inkController }
 
     // 드래그하고 있는 상태를 실시간으로 추적하기 위한 변수
     val refactorPath by liveInkController.refactorPath.observeAsState()

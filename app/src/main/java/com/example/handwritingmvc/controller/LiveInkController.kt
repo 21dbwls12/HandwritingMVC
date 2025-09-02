@@ -9,8 +9,9 @@ import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.handwritingmvc.model.InkModel
 
-class LiveInkController {
+class LiveInkController(private val inkModel: InkModel) {
     // point 위치 추적을 위한 State
     var point by mutableStateOf(Offset.Zero)
     // 새로 그려지는 path 표시하기 위한 points State
@@ -37,6 +38,7 @@ class LiveInkController {
             pathList = mutableListOf(newPath)
         }
         _paths.value = pathList ?: _paths.value
+
     }
 
     fun onDragStart(offset: Offset) {
