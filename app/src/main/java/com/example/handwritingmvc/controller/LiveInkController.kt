@@ -57,6 +57,11 @@ class LiveInkController(private val inkModel: InkModel) {
         _refactorPath.value = Path()
     }
 
+    fun deleteWriting() {
+        inkModel.deletePath()
+        updatePath()
+    }
+
     private fun addPath(newPath: Pair<Path, DrawStyle>) {
         var pathList = _paths.value
 

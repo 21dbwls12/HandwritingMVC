@@ -29,11 +29,9 @@ class ImageController(private val imageModel: ImageModel) {
 
     // 휴지통 아이콘 버튼 클릭시 실행될 함수
     // 이미지 uri 제거 및 필기 삭제
-    fun deleteImageAndWriting(deleteWritingOnly: Boolean) {
-        if (deleteWritingOnly) {
-            imageModel.deleteUri()
-            _selectedImagePainter.value = null
-        }
+    fun deleteImage() {
+        imageModel.deleteUri()
+        _selectedImagePainter.value = null
         closeDialogForDeleting()
     }
 

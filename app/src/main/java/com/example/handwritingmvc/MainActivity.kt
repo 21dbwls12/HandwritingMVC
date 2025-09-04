@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             HandwritingMVCTheme {
-                ScaffoldView(imageController) {
+                ScaffoldView(imageController, liveInkController) {
                     NoteView(imageController, liveInkController)
                 }
             }

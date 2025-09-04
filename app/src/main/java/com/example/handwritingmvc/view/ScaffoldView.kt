@@ -23,9 +23,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.handwritingmvc.controller.ImageController
+import com.example.handwritingmvc.controller.LiveInkController
 
 @Composable
-fun ScaffoldView(imageController: ImageController, content: @Composable (PaddingValues) -> Unit) {
+fun ScaffoldView(
+    imageController: ImageController,
+    liveInkController: LiveInkController,
+    content: @Composable (PaddingValues) -> Unit
+) {
     val pickMedia =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             uri.let {
@@ -47,7 +52,7 @@ fun ScaffoldView(imageController: ImageController, content: @Composable (Padding
         }
     ) { innerPadding ->
         if (imageController.isDeleteWritingClicked) {
-            DialogForDeleteImage(imageController)
+            DialogForDeleteImage(imageController, liveInkController)
         }
         content(innerPadding)
     }
@@ -74,15 +79,23 @@ private fun TopBarIconButtons(icon: ImageVector, onClick: () -> Unit) {
     }
 }
 
+// 휴지통 버튼을 누르면 나오는 대화상자
+// "예"를 누르면 이미지와 필기를 모두 삭제하고, "아니오"를 누르면 필기만 삭제
 @Composable
-private fun DialogForDeleteImage(imageController: ImageController) {
+private fun DialogForDeleteImage(imageController: ImageController, liveInkController: LiveInkController) {
     AlertDialog(
         onDismissRequest = { imageController.closeDialogForDeleting() },
         confirmButton = {
-            DialogTextButton("예") { imageController.deleteImageAndWriting(true) }
+            DialogTextButton("예") {
+                liveInkController.deleteWriting()
+                imageController.deleteImage()
+            }
         },
         dismissButton = {
-            DialogTextButton("아니오") { imageController.deleteImageAndWriting(false) }
+            DialogTextButton("아니오") {
+                liveInkController.deleteWriting()
+                imageController.closeDialogForDeleting()
+            }
         },
         icon = { Icon(imageVector = Icons.Rounded.Info, contentDescription = null) },
         text = { Text("이미지도 같이 삭제하시겠습니까?") }
