@@ -13,9 +13,9 @@ import com.example.handwritingmvc.model.InkModel
 
 class LiveInkController(private val inkModel: InkModel) {
     // point 위치 추적을 위한 State
-    var point by mutableStateOf(Offset.Zero)
+    private var point by mutableStateOf(Offset.Zero)
     // 새로 그려지는 path 표시하기 위한 points State
-    val points = mutableListOf<Offset>()
+    private val points = mutableListOf<Offset>()
     // 새로 그려지고 있는 중인 획 State
     private var _refactorPath = MutableLiveData(Path())
 
@@ -28,18 +28,6 @@ class LiveInkController(private val inkModel: InkModel) {
         get() = _paths
     val pathStyle: LiveData<Stroke>
         get() = _pathStyle
-
-    fun addPath(newPath: Pair<Path, DrawStyle>) {
-        var pathList = _paths.value
-
-        if (pathList != null) {
-            pathList.add(newPath)
-        } else {
-            pathList = mutableListOf(newPath)
-        }
-        _paths.value = pathList ?: _paths.value
-
-    }
 
     fun onDragStart(offset: Offset) {
         point = offset
@@ -64,7 +52,25 @@ class LiveInkController(private val inkModel: InkModel) {
 
     fun onDragEnd() {
         addPath(Pair(refactorPath.value!!, Stroke(1f)))
+        updatePath()
         points.clear()
         _refactorPath.value = Path()
     }
-}   
+
+    private fun addPath(newPath: Pair<Path, DrawStyle>) {
+        var pathList = _paths.value
+
+        if (pathList != null) {
+            pathList.add(newPath)
+        } else {
+            pathList = mutableListOf(newPath)
+        }
+        // model 파일에서 path를 저장할 수 있도록 새로운 path를 넘기기
+        inkModel.updatePath(pathList)
+    }
+
+    private fun updatePath() {
+        // model에 저장되어 있는 path를 view에서 확인할 수 있도록 path를 가져오기
+        _paths.value = inkModel.savedPath.toMutableList()
+    }
+}

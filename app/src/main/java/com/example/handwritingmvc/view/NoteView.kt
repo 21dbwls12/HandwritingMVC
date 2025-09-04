@@ -15,7 +15,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import coil3.compose.AsyncImage
 import com.example.handwritingmvc.controller.ImageController
 import com.example.handwritingmvc.controller.LiveInkController
-import com.example.handwritingmvc.model.InkModel
 
 @Composable
 fun NoteView(imageController: ImageController, inkController: LiveInkController) {
