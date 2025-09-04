@@ -2,6 +2,7 @@ package com.example.handwritingmvc.view
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +26,8 @@ fun NoteView(imageController: ImageController, inkController: LiveInkController)
     val refactorPath by liveInkController.refactorPath.observeAsState()
 
     val paths by liveInkController.paths.observeAsState()
+
+    val strokeColor = if (isSystemInDarkTheme()) Color.White else Color.Black
 
     AsyncImage(
         model = imageController.selectedImagePainter,
@@ -51,11 +54,11 @@ fun NoteView(imageController: ImageController, inkController: LiveInkController)
     ) {
         // 그린 모든 선을 화면에 보여주기 위해 사용
         paths?.forEach {
-            drawPath(path = it.first, Color.Black, style = it.second)
+            drawPath(path = it.first, strokeColor, style = it.second)
         }
 
         // 선이 드래그하는 동안 실시간으로 보여주기 위해서 사용
-        drawPath(refactorPath!!, Color.Black, style = Stroke(1f))
+        drawPath(refactorPath!!, strokeColor, style = Stroke(1f))
     }
 }
 
