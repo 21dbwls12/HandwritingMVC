@@ -11,8 +11,11 @@ class InkModel {
         private set
 
     // 사용자가 그린 획을 저장하는 함수
-    fun updatePath(path: MutableList<Pair<Path, DrawStyle>>) {
-        savedPath = path
+    fun updatePath(newPath: Pair<Path, DrawStyle>) {
+        val pathList = savedPath.toMutableList()
+
+        pathList.add(newPath)
+        savedPath = pathList
     }
 
     // 저장된 획을 모두 지우는 함수

@@ -13,23 +13,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import coil3.compose.AsyncImage
-import com.example.handwritingmvc.controller.ImageController
 import com.example.handwritingmvc.controller.LiveInkController
+import com.example.handwritingmvc.model.ImageModel
+import com.example.handwritingmvc.model.InkModel
 
 @Composable
-fun NoteView(imageController: ImageController, inkController: LiveInkController) {
+fun NoteView(inkController: LiveInkController, imageModel: ImageModel, inkModel: InkModel) {
     // view에서 model을 직접 접근하지 않고 controller를 통해서만 접근하도록 설정
     val liveInkController = remember { inkController }
 
     // 드래그하고 있는 상태를 실시간으로 추적하기 위한 변수
     val refactorPath by liveInkController.refactorPath.observeAsState()
 
-    val paths by liveInkController.paths.observeAsState()
+    val paths = inkModel.savedPath
 
     val strokeColor = if (isSystemInDarkTheme()) Color.White else Color.Black
 
     AsyncImage(
-        model = imageController.selectedImagePainter,
+        model = imageModel.savedUri,
         contentDescription = null,
         modifier = Modifier.fillMaxSize()
     )
@@ -52,7 +53,7 @@ fun NoteView(imageController: ImageController, inkController: LiveInkController)
             }
     ) {
         // 그린 모든 선을 화면에 보여주기 위해 사용
-        paths?.forEach {
+        paths.forEach {
             drawPath(path = it.first, strokeColor, style = it.second)
         }
 
